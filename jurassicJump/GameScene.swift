@@ -19,7 +19,7 @@ class GameScene: SKScene {
     var enemy3: SKSpriteNode!
     var scoreLabel: SKLabelNode = SKLabelNode(fontNamed: "AvenirNext-Bold")
     var score = 0
-    var gravity = -2
+    var gravity = 0
     var AudioPlayer = AVAudioPlayer()
 
     var lastTouchPosition: CGPoint?
@@ -39,6 +39,8 @@ class GameScene: SKScene {
         AudioPlayer.prepareToPlay()
         AudioPlayer.numberOfLoops = -1
         AudioPlayer.play()
+        
+        print(player.position)
         
         //startGame()
         
@@ -93,7 +95,7 @@ class GameScene: SKScene {
         let texture = SKTexture(imageNamed: "dino")
         player = SKSpriteNode(texture: texture)
         player.scale(to: CGSize(width: 230, height: 180))
-        player.position = CGPoint(x: -100, y: -300)
+        player.position = CGPoint(x: 0, y: -420)
         player.zPosition = 2
         
         player.physicsBody = SKPhysicsBody(texture: texture, size: player.size)
@@ -102,13 +104,17 @@ class GameScene: SKScene {
         player.physicsBody?.linearDamping = 0.5
         player.physicsBody?.allowsRotation = false
         
-//        player.physicsBody?.categoryBitMask = 
+//        player.physicsBody?.categoryBitMask =
         
 //        player.physicsBody?.categoryBitMask =
         
         addChild(player)
         
     }
+    
+//    override func didSimulatePhysics() {
+//        <#code#>
+//    }
     
     func createEnemy() {
         
@@ -117,6 +123,7 @@ class GameScene: SKScene {
         enemy.scale(to: CGSize(width: 130, height: 80))
         enemy.position = CGPoint(x: 100, y: 300)
         enemy.zPosition = 2
+        enemy.physicsBody?.allowsRotation = false
         
         enemy.physicsBody = SKPhysicsBody(texture: texture, size: enemy.size)
         enemy.physicsBody?.isDynamic = true
@@ -137,6 +144,8 @@ class GameScene: SKScene {
         enemy2.physicsBody = SKPhysicsBody(texture: texture, size: enemy2.size)
         enemy2.physicsBody?.isDynamic = true
         enemy2.physicsBody?.affectedByGravity = false
+        enemy2.physicsBody?.allowsRotation = false
+
         
         addChild(enemy2)
         
@@ -153,6 +162,8 @@ class GameScene: SKScene {
         enemy3.physicsBody = SKPhysicsBody(texture: texture, size: enemy3.size)
         enemy3.physicsBody?.isDynamic = true
         enemy3.physicsBody?.affectedByGravity = false
+        enemy3.physicsBody?.allowsRotation = false
+
         
         addChild(enemy3)
         
