@@ -84,7 +84,7 @@ class GameScene: SKScene {
         
         let texture = SKTexture(imageNamed: "enemy")
         enemy = SKSpriteNode(texture: texture)
-        enemy.scale(to: CGSize(width: 200, height: 150))
+        enemy.scale(to: CGSize(width: 130, height: 80))
         enemy.position = CGPoint(x: 100, y: 300)
         enemy.zPosition = 2
         
@@ -100,7 +100,7 @@ class GameScene: SKScene {
         
         let texture = SKTexture(imageNamed: "enemy2")
         enemy2 = SKSpriteNode(texture: texture)
-        enemy2.scale(to: CGSize(width: 200, height: 150))
+        enemy2.scale(to: CGSize(width: 130, height: 80))
         enemy2.position = CGPoint(x: 200, y: -300)
         enemy2.zPosition = 2
         
@@ -116,7 +116,7 @@ class GameScene: SKScene {
         
         let texture = SKTexture(imageNamed: "enemy3")
         enemy3 = SKSpriteNode(texture: texture)
-        enemy3.scale(to: CGSize(width: 200, height: 150))
+        enemy3.scale(to: CGSize(width: 130, height: 80))
         enemy3.position = CGPoint(x: -200, y: 200)
         enemy3.zPosition = 2
         
