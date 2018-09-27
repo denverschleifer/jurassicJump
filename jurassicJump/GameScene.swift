@@ -14,6 +14,9 @@ import AVFoundation
 class GameScene: SKScene {
     
     var player: SKSpriteNode!
+    var enemy: SKSpriteNode!
+    var enemy2: SKSpriteNode!
+    var enemy3: SKSpriteNode!
     var scoreLabel: SKLabelNode = SKLabelNode(fontNamed: "AvenirNext-Bold")
     var score = 0
     var gravity = -2
@@ -47,6 +50,10 @@ class GameScene: SKScene {
     func layoutScene() {
         
         createPlayer()
+        createEnemy()
+        createEnemy2()
+        createEnemy3()
+        
         
         scoreLabel.text = "Score: \(score)"
         scoreLabel.fontSize = 35.0
@@ -70,6 +77,54 @@ class GameScene: SKScene {
         player.physicsBody?.affectedByGravity = false
         
         addChild(player)
+        
+    }
+    
+    func createEnemy() {
+        
+        let texture = SKTexture(imageNamed: "enemy")
+        enemy = SKSpriteNode(texture: texture)
+        enemy.scale(to: CGSize(width: 200, height: 150))
+        enemy.position = CGPoint(x: 100, y: 300)
+        enemy.zPosition = 2
+        
+        enemy.physicsBody = SKPhysicsBody(texture: texture, size: enemy.size)
+        enemy.physicsBody?.isDynamic = true
+        enemy.physicsBody?.affectedByGravity = false
+        
+        addChild(enemy)
+        
+    }
+    
+    func createEnemy2() {
+        
+        let texture = SKTexture(imageNamed: "enemy2")
+        enemy2 = SKSpriteNode(texture: texture)
+        enemy2.scale(to: CGSize(width: 200, height: 150))
+        enemy2.position = CGPoint(x: 200, y: -300)
+        enemy2.zPosition = 2
+        
+        enemy2.physicsBody = SKPhysicsBody(texture: texture, size: enemy2.size)
+        enemy2.physicsBody?.isDynamic = true
+        enemy2.physicsBody?.affectedByGravity = false
+        
+        addChild(enemy2)
+        
+    }
+    
+    func createEnemy3() {
+        
+        let texture = SKTexture(imageNamed: "enemy3")
+        enemy3 = SKSpriteNode(texture: texture)
+        enemy3.scale(to: CGSize(width: 200, height: 150))
+        enemy3.position = CGPoint(x: -200, y: 200)
+        enemy3.zPosition = 2
+        
+        enemy3.physicsBody = SKPhysicsBody(texture: texture, size: enemy3.size)
+        enemy3.physicsBody?.isDynamic = true
+        enemy3.physicsBody?.affectedByGravity = false
+        
+        addChild(enemy3)
         
     }
     
