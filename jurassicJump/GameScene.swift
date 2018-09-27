@@ -22,10 +22,15 @@ class GameScene: SKScene {
     var gravity = -2
     var AudioPlayer = AVAudioPlayer()
 
-    
-    
+    var lastTouchPosition: CGPoint?
+    var motionManager: CMMotionManager!
     
     override func didMove(to view: SKView) {
+        
+        motionManager = CMMotionManager()
+        motionManager.startAccelerometerUpdates()
+        physicsWorld.gravity = CGVector(dx: 0, dy: 0)
+        
         setupPhysics()
         layoutScene()
         
@@ -39,24 +44,24 @@ class GameScene: SKScene {
         
     }
     
-    func startNewGame() {
-        
-        score = 0
-        startNewRound()
-        
-    }
+//    func startNewGame() {
+//
+//        score = 0
+//        startNewRound()
+//
+//    }
     
-    func startNewRound() {
-        
-        updateLabels()
-        
-    }
-    
-    func updateLabels() {
-        
-        scoreLabel.text = String(score)
-        
-    }
+//    func startNewRound() {
+//
+//        updateLabels()
+//
+//    }
+//
+//    func updateLabels() {
+//
+//        scoreLabel.text = String(score)
+//
+//    }
     
     
     
@@ -94,6 +99,12 @@ class GameScene: SKScene {
         player.physicsBody = SKPhysicsBody(texture: texture, size: player.size)
         player.physicsBody?.isDynamic = true
         player.physicsBody?.affectedByGravity = false
+        player.physicsBody?.linearDamping = 0.5
+        player.physicsBody?.allowsRotation = false
+        
+//        player.physicsBody?.categoryBitMask = 
+        
+//        player.physicsBody?.categoryBitMask =
         
         addChild(player)
         
@@ -145,6 +156,38 @@ class GameScene: SKScene {
         
         addChild(enemy3)
         
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let touch = touches.first {
+            let location = touch.location(in: self)
+            lastTouchPosition = location
+        }
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let touch = touches.first {
+            let location = touch.location(in: self)
+            lastTouchPosition = location
+        }
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        lastTouchPosition = nil
+    }
+    
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        lastTouchPosition = nil
+    }
+    
+    override func update(_ currentTime: TimeInterval) {
+        if let currentTouch = lastTouchPosition {
+            let diff = CGPoint(x: currentTouch.x - player.position.x, y: currentTouch.y - player.position.y)
+            physicsWorld.gravity = CGVector(dx: diff.x / 100, dy: diff.y / 100)
+        }
+        if let accelerometerData = motionManager.accelerometerData {
+            physicsWorld.gravity = CGVector(dx: accelerometerData.acceleration.y * -50, dy: accelerometerData.acceleration.x * 50)
+        }
     }
     
     }
