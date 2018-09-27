@@ -39,6 +39,25 @@ class GameScene: SKScene {
         
     }
     
+    func startNewGame() {
+        
+        score = 0
+        startNewRound()
+        
+    }
+    
+    func startNewRound() {
+        
+        updateLabels()
+        
+    }
+    
+    func updateLabels() {
+        
+        scoreLabel.text = String(score)
+        
+    }
+    
     
     
     func setupPhysics() {
